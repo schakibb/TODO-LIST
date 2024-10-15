@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+    <div class="container">
+        <h1>TODO LIST</h1>
+        <header>
+            <input type="text" placeholder="Search note..." class="input-text search-input" />
+            <div class="filters">
+                <select id="status-select">
+                    <option value="all">ALL</option>
+                    <option value="complete">Complete</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="notes-list">
+
+
+        </div>
+    </div>
+
+    <button class="add-btn">+</button>
+
+    <div class="overlay hidden"></div>
+
+
+
+    <div class="new-note-window hidden">
+        <h2 class="modal-title">NEW NOTE</h2>
+        <input type="text" placeholder="Input your note..." class="input-text new-note-input">
+        <div class="new-note-buttons">
+            <button class="cancel-btn">CANCEL</button>
+            <button class="apply-btn">APPLY</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
 </body>
+
 </html>
