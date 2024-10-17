@@ -347,3 +347,92 @@ header {
         padding: 8px 12px;
     }
 }
+
+.notes-list {
+    /* background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; */
+}
+
+
+.note-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 0.5px solid var(--primary-color);
+}
+
+.note-item:last-child {
+    border-bottom: none;
+}
+
+.note-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    appearance: none;
+    border: 2px solid #999;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.note-item input[type="checkbox"]:checked {
+    background-color: #7367f0;
+    border-color: #7367f0;
+}
+
+.note-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    display: block;
+}
+
+.note-text {
+    margin-right: 10px;
+    flex: 1;
+    /* Makes the note text stretch */
+}
+
+.note-item input[type="checkbox"]:checked ~ .note-text {
+    color: #999;
+    text-decoration: line-through;
+}
+
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: transparent;
+    border: none;
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 9;
+}
+
+.hidden {
+    display: none;
+}
