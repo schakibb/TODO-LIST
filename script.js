@@ -1,3 +1,4 @@
+
 const notes = [];
 const notesList = document.querySelector(".notes-list")
 const newNoteWindow = document.querySelector(".new-note-window")
@@ -74,13 +75,117 @@ class note {
     }
 
     getNoteNameLowerCase() {
-       
+        return this.noteName.toLowerCase()
     }
 
 
     remove(item) {
+        notesList.removeChild(item); // Remove from the DOM
+        notes.splice(notes.indexOf(this), 1); // Remove from the array using the correct index
+        filterNotes(); // Refresh the displayed notes
     }
 
     toggleComplete(isChecked) {
+        this.isCoomplete = isChecked;
+        filterNotes(); // Reapply filter if needed
     }
 }
+
+
+function filterNotes() {
+    let filterValue = statusSelect.value;
+
+    let notes1 = notes.filter(value => {
+        if (filterValue === 'all') return true;
+        if (filterValue === 'complete' && value.isCoomplete) return true;
+        if (filterValue === 'incomplete' && !value.isCoomplete) return true;
+        return false;
+    });
+
+    notesList.innerHTML = "";
+
+
+    if (notes1.length === 0) {
+        let img = document.createElement("img");
+        img.classList.add("empty-state");
+        img.src = 'Detective-check-footprint 1.svg';
+        img.alt = "Empty";
+
+        let p = document.createElement("p");
+        p.textContent = "Empty...";
+
+        notesList.appendChild(img);
+        notesList.appendChild(p);
+    } else {
+
+        notes1.forEach(value => value.createNote());
+    }
+}
+
+
+function addNewNote() {
+    if (newNoteInput.value != "") {
+        notes.push(new note(newNoteInput.value))
+        closeNewNoteWindow()
+        filterNotes()
+    }
+}
+
+
+function openNewNoteWindow() {
+    newNoteWindow.classList.remove("hidden")
+    overlay.classList.remove("hidden")
+}
+
+
+function closeNewNoteWindow() {
+    newNoteInput.value = ""
+    newNoteWindow.classList.add("hidden")
+    overlay.classList.add("hidden")
+}
+
+
+function searchInNotes() {
+    let searchInputValue = searchInput.value
+    let notes1 = notes.filter(value => value.getNoteNameLowerCase().startsWith(searchInputValue.toLowerCase()))
+
+    notesList.innerHTML = "";
+
+    if (notes1.length === 0) {
+        let img = document.createElement("img");
+        img.classList.add("empty-state");
+        img.src = 'Detective-check-footprint 1.svg';
+        img.alt = "Empty";
+
+        let p = document.createElement("p");
+        p.textContent = "Empty...";
+
+        notesList.appendChild(img);
+        notesList.appendChild(p);
+    } else {
+        notes1.forEach(value => value.createNote());
+    }
+
+}
+
+
+filterNotes()
+
+searchInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        searchInNotes()
+    }
+})
+
+
+overlay.addEventListener("click", closeNewNoteWindow)
+addBtn.addEventListener("click", openNewNoteWindow)
+cancelBtn.addEventListener("click", closeNewNoteWindow)
+applyBtn.addEventListener("click", addNewNote)
+statusSelect.addEventListener("change", filterNotes)
+newNoteInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        addNewNote()
+    }
+})
+
